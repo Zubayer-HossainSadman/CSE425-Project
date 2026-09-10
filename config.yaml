@@ -1,0 +1,145 @@
+# =============================================================================
+# config.yaml — GNN-BERT Music Context Understanding
+# Central configuration for all four tasks. Override any field from the CLI,
+# e.g.:  python train.py --task 3 --config config.yaml --override training.epochs=5
+# =============================================================================
+
+project:
+  name: "gnn-bert-music-context"
+  seed: 42
+  device: "cuda"          # "cuda" | "cpu"  (falls back to cpu automatically if no GPU)
+  output_dir: "results"
+
+# -----------------------------------------------------------------------------
+# Data
+# -----------------------------------------------------------------------------
+data:
+  # Set this to "synthetic" to run the whole pipeline on generated dummy data
+  # (no downloads needed) — useful for smoke-testing before you have the real
+  # datasets on disk. Set to "real" once FMA / MagnaTagATune / MusicCaps / DEAM
+  # are downloaded into data/raw/.
+  mode: "synthetic"        # "synthetic" | "real"
+
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  splits_dir: "data/splits"
+
+  # --- audio datasets -------------------------------------------------------
+  fma:
+    variant: "medium"      # "small" | "medium"
+    audio_dir: "data/raw/fma_medium"
+    metadata_csv: "data/raw/fma_metadata/tracks.csv"
+    sample_rate: 22050
+    n_mels: 128
+    n_chroma: 12
+    segment_seconds: 5.0
+    top_k_tags: 50          # FMA's own `tags` field is sparse/free-text; keep the top-k most frequent
+
+  gtzan:
+    audio_dir: "data/raw/gtzan"
+    sample_rate: 22050
+
+  magnatagatune:
+    audio_dir: "data/raw/magnatagatune/mp3"
+    annotations_csv: "data/raw/magnatagatune/annotations_final.csv"
+    top_k_tags: 50
+
+  musiccaps:
+    csv_path: "data/raw/musiccaps/musiccaps-public.csv"
+    audio_dir: "data/raw/musiccaps/audio"
+    clip_seconds: 10.0
+
+  deam:
+    audio_dir: "data/raw/deam/MEMD_audio"
+    annotations_dir: "data/raw/deam"
+
+  # --- synthetic data generator ----------------------------------------------
+  synthetic:
+    n_tracks: 240
+    n_tags: 20
+    n_val_arousal_targets: true
+    val_split: 0.15
+    test_split: 0.15
+    min_nodes_per_graph: 8
+    max_nodes_per_graph: 24
+
+# -----------------------------------------------------------------------------
+# Preprocessing
+# -----------------------------------------------------------------------------
+preprocessing:
+  bert_model_name: "distilbert-base-uncased"
+  max_text_length: 128
+  chroma_similarity_threshold: 0.85   # tau for segment-graph edges
+  no_artist_leakage: true
+
+# -----------------------------------------------------------------------------
+# Model — Task 1 (BERT baseline)
+# -----------------------------------------------------------------------------
+task1_bert:
+  model_name: "distilbert-base-uncased"
+  freeze_bert: false
+  hidden_dropout: 0.1
+  num_tags: 20              # overwritten at runtime from dataset
+  lr: 2.0e-5
+  weight_decay: 0.01
+
+# -----------------------------------------------------------------------------
+# Model — Task 2 (GNN on structure graphs)
+# -----------------------------------------------------------------------------
+task2_gnn:
+  encoder: "graphsage"       # "graphsage" | "gat"
+  in_channels: 12            # chroma-dim node features by default
+  hidden_channels: 64
+  out_channels: 64
+  num_layers: 3
+  gat_heads: 4
+  dropout: 0.2
+  pooling: "mean"            # "mean" | "max" | "sum"
+  num_classes: 8             # genre classes
+  lr: 1.0e-3
+  weight_decay: 5.0e-4
+
+# -----------------------------------------------------------------------------
+# Model — Task 3 (GNN-BERT fusion)
+# -----------------------------------------------------------------------------
+task3_fusion:
+  fusion_type: "cross_attention"   # "cross_attention" | "concat"
+  gnn_out_dim: 64
+  bert_out_dim: 768
+  fusion_hidden_dim: 256
+  num_tags: 20
+  predict_emotion: true
+  emotion_loss_weight_valence: 0.5
+  emotion_loss_weight_arousal: 0.5
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+
+# -----------------------------------------------------------------------------
+# Model — Task 4 (Contrastive dual encoder)
+# -----------------------------------------------------------------------------
+task4_contrastive:
+  embedding_dim: 256
+  temperature: 0.07
+  lr: 5.0e-5
+  weight_decay: 1.0e-4
+  retrieval_ks: [1, 5, 10]
+
+# -----------------------------------------------------------------------------
+# Training
+# -----------------------------------------------------------------------------
+training:
+  epochs: 20
+  batch_size: 16
+  num_workers: 2
+  early_stopping_patience: 5
+  grad_clip_norm: 1.0
+  log_every_n_steps: 10
+  checkpoint_dir: "results/checkpoints"
+
+# -----------------------------------------------------------------------------
+# Evaluation
+# -----------------------------------------------------------------------------
+evaluation:
+  metrics: ["macro_f1", "micro_f1", "auc_pr"]
+  tsne_perplexity: 30
+  tsne_n_samples: 500

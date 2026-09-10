@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Data (large / downloaded — do not commit)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*.pt
+data/splits/*
+
+# Model artifacts
+results/checkpoints/
+*.pt
+*.ckpt
+
+# Environment
+.venv/
+venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db

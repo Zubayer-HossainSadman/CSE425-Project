@@ -1,0 +1,142 @@
+[
+  {
+    "query_caption": "Rock",
+    "true_track_id": "181",
+    "top3_matched_track_ids": [
+      "18111",
+      "18112",
+      "121435"
+    ],
+    "top3_similarities": [
+      0.365089476108551,
+      0.365089476108551,
+      0.362576425075531
+    ]
+  },
+  {
+    "query_caption": "Rock",
+    "true_track_id": "182",
+    "top3_matched_track_ids": [
+      "87507",
+      "121435",
+      "121434"
+    ],
+    "top3_similarities": [
+      0.4244449734687805,
+      0.3953941762447357,
+      0.3953941762447357
+    ]
+  },
+  {
+    "query_caption": "Rock",
+    "true_track_id": "564",
+    "top3_matched_track_ids": [
+      "133681",
+      "40232",
+      "40230"
+    ],
+    "top3_similarities": [
+      0.3344779908657074,
+      0.33327582478523254,
+      0.33327582478523254
+    ]
+  },
+  {
+    "query_caption": "International",
+    "true_track_id": "704",
+    "top3_matched_track_ids": [
+      "41019",
+      "86446",
+      "23449"
+    ],
+    "top3_similarities": [
+      0.4798448979854584,
+      0.4325363039970398,
+      0.41383349895477295
+    ]
+  },
+  {
+    "query_caption": "International",
+    "true_track_id": "705",
+    "top3_matched_track_ids": [
+      "86446",
+      "84777",
+      "93523"
+    ],
+    "top3_similarities": [
+      0.4433147609233856,
+      0.4223015010356903,
+      0.39741986989974976
+    ]
+  },
+  {
+    "query_caption": "International",
+    "true_track_id": "706",
+    "top3_matched_track_ids": [
+      "41019",
+      "71503",
+      "128441"
+    ],
+    "top3_similarities": [
+      0.3750809133052826,
+      0.32488706707954407,
+      0.32096952199935913
+    ]
+  },
+  {
+    "query_caption": "International",
+    "true_track_id": "707",
+    "top3_matched_track_ids": [
+      "137631",
+      "137632",
+      "137630"
+    ],
+    "top3_similarities": [
+      0.44044503569602966,
+      0.44044503569602966,
+      0.44044503569602966
+    ]
+  },
+  {
+    "query_caption": "International",
+    "true_track_id": "708",
+    "top3_matched_track_ids": [
+      "148028",
+      "148031",
+      "148030"
+    ],
+    "top3_similarities": [
+      0.41796961426734924,
+      0.41796961426734924,
+      0.41796961426734924
+    ]
+  },
+  {
+    "query_caption": "International",
+    "true_track_id": "709",
+    "top3_matched_track_ids": [
+      "82515",
+      "82519",
+      "75078"
+    ],
+    "top3_similarities": [
+      0.39275404810905457,
+      0.39275404810905457,
+      0.3875379264354706
+    ]
+  },
+  {
+    "query_caption": "Soul-RnB",
+    "true_track_id": "734",
+    "top3_matched_track_ids": [
+      "123101",
+      "123103",
+      "123102"
+    ],
+    "top3_similarities": [
+      0.3456270098686218,
+      0.3456270098686218,
+      0.3456270098686218
+    ]
+  }
+]

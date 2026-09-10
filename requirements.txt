@@ -1,0 +1,40 @@
+# Core deep learning
+torch>=2.2.0
+torchvision>=0.17.0
+torchaudio>=2.2.0
+
+# Graph neural networks
+torch-geometric>=2.5.0
+
+# Transformers / BERT
+transformers>=4.38.0
+tokenizers>=0.15.0
+
+# Audio processing
+librosa>=0.10.1
+soundfile>=0.12.1
+
+# Data / scientific stack
+numpy>=1.26.0
+pandas>=2.2.0
+scikit-learn>=1.4.0
+scipy>=1.12.0
+
+# Graph utilities
+networkx>=3.2
+
+# Visualization
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Progress / logging / config
+tqdm>=4.66.0
+PyYAML>=6.0.1
+tensorboard>=2.16.0
+
+# Notebook support
+jupyter>=1.0.0
+ipykernel>=6.29.0
+
+# Misc
+einops>=0.7.0
